@@ -1,0 +1,35 @@
+.excel-reader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .excel-reader__input {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    border: none;
+    border-radius: 0.25em;
+  }
+  
+  .excel-reader__button {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 0.25em;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  
+    &:not(:disabled):hover {
+      background-color: #0056b3;
+    }
+  }
+  
