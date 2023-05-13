@@ -1,5 +1,3 @@
-// src/components/ExcelReader/ExcelReader.scss
-
 .excel-reader {
   display: flex;
   flex-direction: column;
@@ -37,8 +35,9 @@
 
 .excel-reader__buttons {
   display: flex;
-  justify-content: space-between;
   width: 100%;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .excel-reader__button {
