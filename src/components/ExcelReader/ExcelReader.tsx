@@ -11,6 +11,13 @@ const ExcelReader: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [specialChars, setSpecialChars] = useState<string>("");
 
+    const escapeRegExp = (str: string) => {
+        let result = str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');  // escape special characters
+        result = result.replace(/-/g, '');  // remove dashes
+        result += '-';  // add a single dash at the end
+        return result;
+    }
+
     const removeSpecialCharacters = (str: string) => {
         const accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ';
         const accentsOut = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn";
@@ -19,8 +26,9 @@ const ExcelReader: React.FC = () => {
             return accentIndex !== -1 ? accentsOut[accentIndex] : letter;
         }).join('');
 
-        const specialCharsRegex = new RegExp(`[${RegExp.escape(specialChars)}]`, 'g');
-        return str.replace(specialCharsRegex, "");
+        const escapedSpecialChars = escapeRegExp(specialChars);
+        const specialCharsRegex = new RegExp(`[${escapedSpecialChars}]`, 'g');
+        return str.replace(specialCharsRegex, "")
     }
 
     const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
