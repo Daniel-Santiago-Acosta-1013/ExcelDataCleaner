@@ -1,35 +1,75 @@
+// src/components/ExcelReader/ExcelReader.scss
+
 .excel-reader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  transition: background-color 0.2s ease;
+}
+
+.excel-reader.dark-mode {
+  background-color: #333;
+  color: white;
+}
+
+.excel-reader__top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1em;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.excel-reader__content {
+  z-index: 0;
+}
+
+.excel-reader__input {
+  margin-bottom: 1em;
+  padding: 0.5em;
+  border: none;
+  border-radius: 0.25em;
+}
+
+.excel-reader__buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.excel-reader__button {
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 0.25em;
+  color: white;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
   }
-  
-  .excel-reader__input {
-    margin-bottom: 1em;
-    padding: 0.5em;
-    border: none;
-    border-radius: 0.25em;
+
+  &:not(:disabled):hover {
+    background-color: #0056b3;
   }
-  
-  .excel-reader__button {
-    padding: 0.5em 1em;
-    border: none;
-    border-radius: 0.25em;
-    color: white;
-    background-color: #007bff;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  
-    &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-  
-    &:not(:disabled):hover {
-      background-color: #0056b3;
-    }
+}
+
+.excel-reader__mode-toggle {
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 0.25em;
+  color: white;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #0056b3;
   }
-  
+}

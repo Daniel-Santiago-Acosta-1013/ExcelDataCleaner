@@ -10,6 +10,7 @@ const ExcelReader: React.FC = () => {
     const [data, setData] = useState<BlobPart | null>(null);
     const [loading, setLoading] = useState(false);
     const [specialChars, setSpecialChars] = useState<string>("");
+    const [darkMode, setDarkMode] = useState(false);
 
     const escapeRegExp = (str: string) => {
         let result = str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');  // escape special characters
@@ -96,12 +97,19 @@ const ExcelReader: React.FC = () => {
     }
 
     return (
-        <div className="excel-reader">
-            <input type="text" value={specialChars} onChange={(e) => setSpecialChars(e.target.value)} placeholder="Ingrese caracteres especiales para remover" className="excel-reader__input" />
-            <input type="file" accept=".xlsx, .xls" onChange={handleFile} className="excel-reader__input" />
-            <button onClick={downloadFile} disabled={!data} className="excel-reader__button">Descargar</button>
-            <button onClick={retry} className="excel-reader__button">Reintentar</button>
-            {loading && <ReactLoading type={"bubbles"} color={"#blue"} height={'20%'} width={'20%'} />}
+        <div className={`excel-reader ${darkMode ? 'dark-mode' : ''}`}>
+            <div className="excel-reader__top-bar">
+                <button onClick={() => setDarkMode(!darkMode)} className="excel-reader__mode-toggle">Dark Mode</button>
+            </div>
+            <div className="excel-reader__content">
+                <input type="text" value={specialChars} onChange={(e) => setSpecialChars(e.target.value)} placeholder="Ingrese caracteres especiales para remover" className="excel-reader__input" />
+                <input type="file" accept=".xlsx, .xls" onChange={handleFile} className="excel-reader__input" />
+                <div className="excel-reader__buttons">
+                    <button onClick={downloadFile} disabled={!data} className="excel-reader__button">Descargar</button>
+                    <button onClick={retry} className="excel-reader__button">Reintentar</button>
+                </div>
+                {loading && <ReactLoading type={"bubbles"} color={"#blue"} height={'20%'} width={'20%'} />}
+            </div>
         </div>
     );
 };
