@@ -13,6 +13,7 @@ const ExcelReader: React.FC = () => {
     const [specialChars, setSpecialChars] = useState<string>("");
     const [darkMode, setDarkMode] = useState(false);
     const [modifiedCells, setModifiedCells] = useState<Record<string, string>>({});
+    const [originalCells, setOriginalCells] = useState<Record<string, string>>({});
 
     const escapeRegExp = (str: string) => {
         let result = str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');  // escape special characters
@@ -26,19 +27,28 @@ const ExcelReader: React.FC = () => {
             return str;
         }
 
+        const originalStr = str;  // Store the original string
+
         const accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ';
         const accentsOut = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn";
+        let hasAccent = false;
         str = str.split('').map((letter) => {
             const accentIndex = accents.indexOf(letter);
-            return accentIndex !== -1 ? accentsOut[accentIndex] : letter;
+            if (accentIndex !== -1) {
+                hasAccent = true;
+                return accentsOut[accentIndex];
+            } else {
+                return letter;
+            }
         }).join('');
 
         const escapedSpecialChars = escapeRegExp(specialChars);
         const specialCharsRegex = new RegExp(`[${escapedSpecialChars}]`, 'g');
 
         const newStr = str.replace(specialCharsRegex, "");
-        if (str !== newStr) {
+        if (str !== newStr || hasAccent) {
             setModifiedCells(prev => ({ ...prev, [cellId]: str }));
+            setOriginalCells(prev => ({ ...prev, [cellId]: originalStr }));
         }
 
         return newStr;
@@ -125,7 +135,7 @@ const ExcelReader: React.FC = () => {
                     <button onClick={retry} className="excel-reader__button">Reintentar</button>
                 </div>
                 {loading && <ReactLoading type={"bubbles"} color={"#blue"} height={'20%'} width={'20%'} />}
-                {data && <ExcelPreview data={data} modifiedCells={modifiedCells} />}
+                {data && <ExcelPreview data={data} modifiedCells={modifiedCells} originalCells={originalCells} />}
             </div>
         </div>
     );
