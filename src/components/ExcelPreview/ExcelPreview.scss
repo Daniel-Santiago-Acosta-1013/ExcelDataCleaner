@@ -12,4 +12,7 @@
     padding: 0.5em;
     text-align: left;
   }
-  
+
+  .excel-preview__table td.modified {
+    background-color: #fffbcc;  // El color amarillo claro indica las celdas modificadas
+}

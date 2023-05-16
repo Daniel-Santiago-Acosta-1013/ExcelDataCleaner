@@ -12,6 +12,7 @@ const ExcelReader: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [specialChars, setSpecialChars] = useState<string>("");
     const [darkMode, setDarkMode] = useState(false);
+    const [modifiedCells, setModifiedCells] = useState<Record<string, string>>({});
 
     const escapeRegExp = (str: string) => {
         let result = str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');  // escape special characters
@@ -20,7 +21,7 @@ const ExcelReader: React.FC = () => {
         return result;
     }
 
-    const removeSpecialCharacters = (str: any) => {
+    const removeSpecialCharacters = (str: any, cellId: string) => {
         if (typeof str !== 'string') {
             return str;
         }
@@ -34,7 +35,13 @@ const ExcelReader: React.FC = () => {
 
         const escapedSpecialChars = escapeRegExp(specialChars);
         const specialCharsRegex = new RegExp(`[${escapedSpecialChars}]`, 'g');
-        return str.replace(specialCharsRegex, "")
+
+        const newStr = str.replace(specialCharsRegex, "");
+        if (str !== newStr) {
+            setModifiedCells(prev => ({ ...prev, [cellId]: str }));
+        }
+
+        return newStr;
     }
 
     const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,12 +57,16 @@ const ExcelReader: React.FC = () => {
 
                     const worksheetName = workbook.SheetNames[0];
                     const worksheet = workbook.Sheets[worksheetName];
-                    
+
                     // Convert worksheet to JSON
                     const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as string[][];
 
                     // Process the data
-                    const newData = json.map(row => row.map(cell => removeSpecialCharacters(cell)));
+                    const newData = json.map((row, rowIndex) =>
+                        row.map((cell, cellIndex) =>
+                            removeSpecialCharacters(cell, `${rowIndex}-${cellIndex}`)
+                        )
+                    );
 
                     setData(newData);
                     setLoading(false);
@@ -114,7 +125,7 @@ const ExcelReader: React.FC = () => {
                     <button onClick={retry} className="excel-reader__button">Reintentar</button>
                 </div>
                 {loading && <ReactLoading type={"bubbles"} color={"#blue"} height={'20%'} width={'20%'} />}
-                {data && <ExcelPreview data={data} />}
+                {data && <ExcelPreview data={data} modifiedCells={modifiedCells} />}
             </div>
         </div>
     );
