@@ -127,6 +127,7 @@ const ExcelReader: React.FC = () => {
             <div className="excel-reader__top-bar">
                 <button onClick={() => setDarkMode(!darkMode)} className="excel-reader__mode-toggle">Dark Mode</button>
             </div>
+            <h1 className="excel-reader__title">Excel Special Character Remover</h1>
             <div className="excel-reader__content">
                 <input type="text" value={specialChars} onChange={(e) => setSpecialChars(e.target.value)} placeholder="Ingrese caracteres especiales para remover" className="excel-reader__input" />
                 <input type="file" accept=".xlsx, .xls" onChange={handleFile} className="excel-reader__input" />
