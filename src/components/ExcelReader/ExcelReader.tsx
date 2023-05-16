@@ -3,11 +3,12 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import Swal from 'sweetalert2';
 import ReactLoading from 'react-loading';
+import ExcelPreview from '../ExcelPreview/ExcelPreview';
 import './ExcelReader.scss';
 
 const ExcelReader: React.FC = () => {
 
-    const [data, setData] = useState<BlobPart | null>(null);
+    const [data, setData] = useState<string[][] | null>(null);
     const [loading, setLoading] = useState(false);
     const [specialChars, setSpecialChars] = useState<string>("");
     const [darkMode, setDarkMode] = useState(false);
@@ -19,7 +20,11 @@ const ExcelReader: React.FC = () => {
         return result;
     }
 
-    const removeSpecialCharacters = (str: string) => {
+    const removeSpecialCharacters = (str: any) => {
+        if (typeof str !== 'string') {
+            return str;
+        }
+
         const accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ';
         const accentsOut = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn";
         str = str.split('').map((letter) => {
@@ -45,20 +50,14 @@ const ExcelReader: React.FC = () => {
 
                     const worksheetName = workbook.SheetNames[0];
                     const worksheet = workbook.Sheets[worksheetName];
+                    
+                    // Convert worksheet to JSON
+                    const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as string[][];
 
-                    for (const cell in worksheet) {
-                        if (Object.prototype.hasOwnProperty.call(worksheet, cell)) {
-                            if (cell[0] !== '!' && typeof worksheet[cell].v === 'string') {
-                                worksheet[cell].v = removeSpecialCharacters(worksheet[cell].v);
-                            }
-                        }
-                    }
+                    // Process the data
+                    const newData = json.map(row => row.map(cell => removeSpecialCharacters(cell)));
 
-                    const newWorkbook = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(newWorkbook, worksheet, worksheetName);
-
-                    const newData = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'binary' });
-                    setData(s2ab(newData));
+                    setData(newData);
                     setLoading(false);
                     Swal.fire('Éxito', 'Archivo procesado correctamente', 'success');
                 } catch (error) {
@@ -87,7 +86,13 @@ const ExcelReader: React.FC = () => {
 
     const downloadFile = () => {
         if (data) {
-            const blob = new Blob([data], { type: "application/octet-stream" });
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+            const blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+
             saveAs(blob, "processed_file.xlsx");
         }
     };
@@ -109,6 +114,7 @@ const ExcelReader: React.FC = () => {
                     <button onClick={retry} className="excel-reader__button">Reintentar</button>
                 </div>
                 {loading && <ReactLoading type={"bubbles"} color={"#blue"} height={'20%'} width={'20%'} />}
+                {data && <ExcelPreview data={data} />}
             </div>
         </div>
     );
