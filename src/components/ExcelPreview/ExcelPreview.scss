@@ -12,14 +12,27 @@
 .excel-preview__table {
   border-collapse: collapse;
   width: 100%;
+  color: #333; // color por defecto para modo claro
+}
+
+.excel-preview.dark-mode .excel-preview__table {
+  color: #fff; // color para modo oscuro
 }
 
 .excel-preview__table td {
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; // color por defecto para modo claro
   padding: 0.5em;
   text-align: left;
 }
 
+.excel-preview.dark-mode .excel-preview__table td {
+  border: 1px solid #aaa; // color para modo oscuro
+}
+
 .excel-preview__table td.modified {
-  background-color: #fffbcc;
+  background-color: #fffbcc; // color por defecto para modo claro
+}
+
+.excel-preview.dark-mode .excel-preview__table td.modified {
+  background-color: #555; // color para modo oscuro
 }

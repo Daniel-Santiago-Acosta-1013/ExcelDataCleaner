@@ -1,7 +1,6 @@
 .excel-reader {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   transition: background-color 0.2s ease;
   align-items: center;
 }
@@ -32,18 +31,21 @@
   padding-top: 3em;
 }
 
+// desde aqui
+
 .excel-reader__input {
   margin-bottom: 1em;
   padding: 0.5em;
   border: none;
   border-radius: 0.25em;
+  color: #333; // color por defecto para modo claro
+  background-color: #fff; // color por defecto para modo claro
+  margin-left: 10px;
 }
 
-.excel-reader__buttons {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  gap: 10px;
+.excel-reader.dark-mode .excel-reader__input {
+  color: #fff; // color para modo oscuro
+  background-color: #555; // color para modo oscuro
 }
 
 .excel-reader__button {
@@ -54,6 +56,7 @@
   background-color: #007bff;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  margin-left: 10px;
 
   &:disabled {
     background-color: #ccc;
@@ -62,6 +65,14 @@
 
   &:not(:disabled):hover {
     background-color: #0056b3;
+  }
+}
+
+.excel-reader.dark-mode .excel-reader__button {
+  background-color: #0056b3;
+
+  &:not(:disabled):hover {
+    background-color: #007bff;
   }
 }
 
@@ -76,5 +87,13 @@
 
   &:hover {
     background-color: #0056b3;
+  }
+}
+
+.excel-reader.dark-mode .excel-reader__mode-toggle {
+  background-color: #0056b3;
+
+  &:hover {
+    background-color: #007bff;
   }
 }

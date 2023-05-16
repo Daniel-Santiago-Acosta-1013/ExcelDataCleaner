@@ -136,7 +136,7 @@ const ExcelReader: React.FC = () => {
                     <button onClick={retry} className="excel-reader__button">Reintentar</button>
                 </div>
                 {loading && <ReactLoading type={"bubbles"} color={"#blue"} height={'20%'} width={'20%'} />}
-                {data && <ExcelPreview data={data} modifiedCells={modifiedCells} originalCells={originalCells} />}
+                {data && <ExcelPreview data={data} modifiedCells={modifiedCells} originalCells={originalCells} darkMode={darkMode} />}
             </div>
         </div>
     );

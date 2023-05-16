@@ -4,12 +4,13 @@ import './ExcelPreview.scss';
 interface ExcelPreviewProps {
     data: string[][];
     modifiedCells: Record<string, string>;
-    originalCells: Record<string, string>;  // Nuevo estado para los valores originales de las celdas modificadas
+    originalCells: Record<string, string>;
+    darkMode: boolean;  // Agrega esto
 }
 
-const ExcelPreview: React.FC<ExcelPreviewProps> = ({ data, modifiedCells, originalCells }) => {
+const ExcelPreview: React.FC<ExcelPreviewProps> = ({ data, modifiedCells, originalCells, darkMode }) => {
     return (
-        <div className="excel-preview">
+        <div className={`excel-preview ${darkMode ? 'dark-mode' : ''}`}>
             <table className="excel-preview__table">
                 <tbody>
                     {data.map((row, rowIndex) => (
