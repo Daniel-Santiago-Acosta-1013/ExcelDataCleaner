@@ -1,18 +1,24 @@
 .excel-preview {
-    margin-top: 1em;
-  }
-  
-  .excel-preview__table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  .excel-preview__table td {
-    border: 1px solid #ccc;
-    padding: 0.5em;
-    text-align: left;
-  }
+  margin-top: 1em;
+  max-height: 80vh;
+  max-width: 100%;
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1em;
+}
 
-  .excel-preview__table td.modified {
-    background-color: #fffbcc;  // El color amarillo claro indica las celdas modificadas
+.excel-preview__table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.excel-preview__table td {
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  text-align: left;
+}
+
+.excel-preview__table td.modified {
+  background-color: #fffbcc;
 }
