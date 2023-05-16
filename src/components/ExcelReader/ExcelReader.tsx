@@ -2,8 +2,8 @@ import React, { ChangeEvent, useState } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import Swal from 'sweetalert2';
-import ReactLoading from 'react-loading';
 import ExcelPreview from '../ExcelPreview/ExcelPreview';
+import { BeatLoader } from 'react-spinners';
 import './ExcelReader.scss';
 
 const ExcelReader: React.FC = () => {
@@ -135,7 +135,11 @@ const ExcelReader: React.FC = () => {
                     <button onClick={downloadFile} disabled={!data} className="excel-reader__button">Descargar</button>
                     <button onClick={retry} className="excel-reader__button">Reintentar</button>
                 </div>
-                {loading && <ReactLoading type={"bubbles"} color={"#blue"} height={'20%'} width={'20%'} />}
+                {loading &&
+                    <div className="excel-reader__loading">
+                        <BeatLoader color={"#ffffff"} loading={loading} size={20} />
+                    </div>
+                }
                 {data && <ExcelPreview data={data} modifiedCells={modifiedCells} originalCells={originalCells} darkMode={darkMode} />}
             </div>
         </div>

@@ -5,7 +5,7 @@ interface ExcelPreviewProps {
     data: string[][];
     modifiedCells: Record<string, string>;
     originalCells: Record<string, string>;
-    darkMode: boolean;  // Agrega esto
+    darkMode: boolean;
 }
 
 const ExcelPreview: React.FC<ExcelPreviewProps> = ({ data, modifiedCells, originalCells, darkMode }) => {
