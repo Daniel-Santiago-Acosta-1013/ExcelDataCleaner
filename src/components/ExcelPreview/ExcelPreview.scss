@@ -28,6 +28,23 @@
   background-color: #555; // color para modo oscuro
 }
 
+.dark-mode {
+  .excel-preview {
+    background-color: #444;
+    border-color: #555;
+  }
+
+  .excel-preview__table td {
+    color: #f8f9fa; // color de texto blanco
+    border-color: #555;
+  }
+
+  .excel-preview__table td.modified {
+    background-color: #555;
+    color: #f8f9fa; // color de texto blanco
+  }
+}
+
 @media (max-width: 1024px) {
   .excel-preview {
     margin-top: 0.5em;

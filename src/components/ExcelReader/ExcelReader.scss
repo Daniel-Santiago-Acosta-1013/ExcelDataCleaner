@@ -6,10 +6,48 @@
   padding: 1em;
   box-sizing: border-box;
   font-family: "Helvetica Neue", sans-serif;
+  height: 71pc;
+
+  a { // selector de enlace
+    color: #000; // color de texto negro para el modo claro
+  }
 
   &.dark-mode {
     background-color: #333;
-    color: white;
+    
+    a { // selector de enlace
+      color: #f8f9fa; // color de texto blanco para el modo oscuro
+    }
+
+    .excel-reader__top-bar {
+      background-color: #444;
+      border-color: #555;
+    }
+    .excel-reader__title {
+      color: #f8f9fa;
+    }
+    .excel-reader__input {
+      background-color: #555;
+      color: #f8f9fa;
+      border-color: #f8f9fa;
+    }
+    .excel-reader__button {
+      background-color: #f8f9fa;
+      color: #333;
+      &:hover {
+        background-color: #ddd;
+      }
+      &:disabled {
+        background-color: #888;
+        color: #ffffff;
+      }
+    }
+    .excel-reader__mode-toggle {
+      background-color: #0056b3;
+      &:hover {
+        background-color: #007bff;
+      }
+    }
   }
 }
 
@@ -99,6 +137,7 @@
 
 .excel-reader.dark-mode .excel-reader__button {
   background-color: #0056b3;
+  color: #fff;
 
   &:not(:disabled):hover {
     background-color: #007bff;
