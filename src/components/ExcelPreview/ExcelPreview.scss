@@ -1,36 +1,27 @@
 .excel-preview {
   margin-top: 1em;
   max-height: 80vh;
-  max-width: 100%;
   overflow: auto;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 12px;
   padding: 1em;
-  margin-bottom: 5pc;
 }
 
 .excel-preview__table {
   border-collapse: collapse;
   width: 100%;
-  color: #333; // color por defecto para modo claro
-}
-
-.excel-preview.dark-mode .excel-preview__table {
-  color: #fff; // color para modo oscuro
+  color: #333;
+  font-size: 0.85rem;
 }
 
 .excel-preview__table td {
-  border: 1px solid #ccc; // color por defecto para modo claro
+  border: 1px solid #ccc;
   padding: 0.5em;
   text-align: left;
 }
 
-.excel-preview.dark-mode .excel-preview__table td {
-  border: 1px solid #aaa; // color para modo oscuro
-}
-
 .excel-preview__table td.modified {
-  background-color: #fffbcc; // color por defecto para modo claro
+  background-color: #fffbcc;
 }
 
 .excel-preview.dark-mode .excel-preview__table td.modified {

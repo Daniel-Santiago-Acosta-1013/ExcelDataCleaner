@@ -3,59 +3,89 @@
   flex-direction: column;
   transition: background-color 0.2s ease;
   align-items: center;
-}
-
-.excel-reader.dark-mode {
-  background-color: #333;
-  color: white;
-  height: 100pc;
-}
-
-.excel-reader__top-bar {
-  top: 0;
-  left: 0;
-  width: 100%;
   padding: 1em;
-  background-color: rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  margin-bottom: 10pc;
-  
-  .excel-reader__title {
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 1em;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", sans-serif;
+
+  &.dark-mode {
+    background-color: #333;
+    color: white;
   }
 }
 
-.excel-reader__content {
-  z-index: 0;
-  padding-top: 3em;
+.excel-reader__top-bar {
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  width: 100%;
+  padding: 1em;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  z-index: 100;
 }
 
-.excel-reader__input {
-  margin-bottom: 1em;
-  padding: 0.5em;
-  border: none;
-  border-radius: 0.25em;
-  color: #333; // color por defecto para modo claro
-  background-color: #fff; // color por defecto para modo claro
-  margin-left: 10px;
+.excel-reader__title {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0;
+  margin-top: 100px;
 }
 
-.excel-reader.dark-mode .excel-reader__input {
-  color: #fff; // color para modo oscuro
-  background-color: #555; // color para modo oscuro
-}
-
-.excel-reader__button {
+.excel-reader__mode-toggle {
   padding: 0.5em 1em;
   border: none;
-  border-radius: 0.25em;
+  border-radius: 12px;
   color: white;
   background-color: #007bff;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  margin-left: 10px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.excel-reader__content {
+  width: 100%;
+  max-width: 1024px;
+  margin: 2em auto;
+}
+
+.excel-reader__input {
+  width: 100%;
+  padding: 0.5em;
+  border: none;
+  border-radius: 12px;
+  color: #333;
+  background-color: #fff;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+  border: solid 1px #0000004a;
+}
+
+.excel-reader__buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.excel-reader__button {
+  flex: 1;
+  margin-right: 0.5em;
+  padding: 0.5em;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: center;
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   &:disabled {
     background-color: #ccc;
@@ -111,6 +141,10 @@
 }
 
 @media (max-width: 1024px) {
+  .excel-reader {
+    padding: 10px; // Reduce el relleno en dispositivos más pequeños
+  }
+
   .excel-reader__content {
     padding-top: 1em;
   }
@@ -145,7 +179,7 @@
   .excel-reader__input {
     font-size: 0.9em;
   }
-  
+
   .excel-reader__button {
     font-size: 0.9em;
   }
