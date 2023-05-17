@@ -36,3 +36,26 @@
 .excel-preview.dark-mode .excel-preview__table td.modified {
   background-color: #555; // color para modo oscuro
 }
+
+@media (max-width: 1024px) {
+  .excel-preview {
+    margin-top: 0.5em;
+    max-height: 70vh;
+  }
+
+  .excel-preview__table td {
+    font-size: 0.9em;
+    padding: 0.25em;
+  }
+}
+
+@media (max-width: 768px) {
+  .excel-preview {
+    margin-top: 0.25em;
+    max-height: 60vh;
+  }
+
+  .excel-preview__table td {
+    font-size: 0.8em;
+  }
+}

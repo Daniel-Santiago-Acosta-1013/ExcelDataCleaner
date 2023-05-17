@@ -109,3 +109,44 @@
     background-color: #007bff;
   }
 }
+
+@media (max-width: 1024px) {
+  .excel-reader__content {
+    padding-top: 1em;
+  }
+
+  .excel-reader__input,
+  .excel-reader__button {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .excel-reader__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    .excel-reader__button {
+      margin-left: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .excel-reader__top-bar {
+    padding: 0.5em;
+    margin-bottom: 5pc;
+  }
+
+  .excel-reader__title {
+    font-size: 1.5em;
+  }
+
+  .excel-reader__input {
+    font-size: 0.9em;
+  }
+  
+  .excel-reader__button {
+    font-size: 0.9em;
+  }
+}
